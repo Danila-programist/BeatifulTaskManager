@@ -20,3 +20,5 @@ help: ##@Help Show this help
 
 %::
 	@echo $(MESSAGE)
+
+PHONY: up down backend_env help
