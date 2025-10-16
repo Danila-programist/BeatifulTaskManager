@@ -11,8 +11,20 @@ else
 MESSAGE = "Done"
 endif
 
-backend_env: ##@Environment Activate Poetry shell
+backend_env:  ##@Environment Activate Poetry shell
 	cd backend && poetry shell
+
+up:  ##@Docker Start docker-compose services
+	docker-compose up -d  
+
+down:  ##@Docker Stop docker-compose services
+	docker-compose down
+
+logs:   ##@Docker Show logs from docker-compose
+	docker-compose logs -f
+
+rebuild:  ##@Docker Rebuild and restart services
+	docker-compose down && docker-compose up -d --build
 
 help: ##@Help Show this help
 	@echo -e "Usage: make [target] ...\n"
@@ -21,4 +33,4 @@ help: ##@Help Show this help
 %::
 	@echo $(MESSAGE)
 
-PHONY: up down backend_env help
+PHONY: up down backend_env help rebuild logs
