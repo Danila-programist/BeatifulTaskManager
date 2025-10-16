@@ -26,6 +26,12 @@ logs:   ##@Docker Show logs from docker-compose
 rebuild:  ##@Docker Rebuild and restart services
 	docker-compose down && docker-compose up -d --build
 
+test_backend: ##@Testing Run tests for backend
+	cd backend && poetry run pytest -v
+
+test-cov_backend: ##@Testing Run tests with coverage for backend
+	cd backend && poetry run pytest --cov=. --cov-report=term:skip-covered
+
 help: ##@Help Show this help
 	@echo -e "Usage: make [target] ...\n"
 	@perl -e '$(HELP_FUN)' $(MAKEFILE_LIST)
