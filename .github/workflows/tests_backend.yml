@@ -28,4 +28,5 @@ jobs:
 
       - name: Run Pytest
         run: |
+          cd backend
           poetry run pytest tests --verbosity=3 --showlocals --log-level=DEBUG
