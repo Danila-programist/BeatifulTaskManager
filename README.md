@@ -55,4 +55,15 @@ make env_file
 make up
 ```
 
+3. Ревизия базы данных
+
+```bash
+make revision
+```
+
+4. Миграция базы данных
+
+```bash
+make migration
+```
 
