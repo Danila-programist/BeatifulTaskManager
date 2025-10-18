@@ -12,7 +12,7 @@ MESSAGE = "Done"
 endif
 
 include .env
-
+export
 
 
 backend_env:  ##@Environment Activate Poetry shell for backend
@@ -40,6 +40,12 @@ rebuild:  ##@Docker Rebuild and restart services
 
 psql:  ##@Database Open PostgreSQL inside docker container
 	docker exec -it $(DB_CONTAINER_NAME) psql -d $(DB_NAME) -U $(DB_USER)
+
+revision:  ##@Database Create Alembic revision
+	cd backend && poetry run alembic revision --autogenerate
+
+migration:  ##@Database Apply Alembic migrations
+	cd backend && poetry run alembic upgrade head
 
 test_backend: ##@Testing Run tests for backend
 	cd backend && poetry run pytest -v

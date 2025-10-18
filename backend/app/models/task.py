@@ -7,7 +7,7 @@ from sqlalchemy.sql import text
 from sqlalchemy.dialects.postgresql import UUID
 
 
-from app.models import Base, User
+from app.models import Base
 
 
 class Task(Base):
@@ -35,4 +35,4 @@ class Task(Base):
         nullable=False,
     )
 
-    user: Mapped["User"] = relationship("User", back_populates="tasks", lazy="joined")
+    user = relationship("User", back_populates="tasks", lazy="joined")

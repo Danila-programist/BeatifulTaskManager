@@ -7,7 +7,7 @@ from sqlalchemy import String, Boolean, DateTime
 from sqlalchemy.sql import text
 from sqlalchemy.dialects.postgresql import UUID
 
-from app.models import Base, Task
+from app.models import Base
 
 
 class User(Base):
@@ -30,6 +30,6 @@ class User(Base):
         DateTime(timezone=True), server_default=text("NOW()")
     )
 
-    tasks: Mapped[List["Task"]] = relationship(
+    tasks = relationship(
         "Task", back_populates="user", cascade="all, delete-orphan", lazy="select"
     )

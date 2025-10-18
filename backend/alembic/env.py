@@ -14,9 +14,7 @@ if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
 
-if config.get_main_option("sqlalchemy.url") in (None, "None", ""):
-    config.set_main_option("sqlalchemy.url", str(settings.ASYNC_DATABASE_DSN))
-
+config.set_main_option("sqlalchemy.url", str(settings.ASYNC_DATABASE_DSN))
 target_metadata = Base.metadata
 
 

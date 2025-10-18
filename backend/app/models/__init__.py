@@ -1,8 +1,9 @@
-from sqlalchemy.orm import DeclarativeBase
-
-from .task import Task
+from .base import Base
 from .users import User
+from .task import Task
 
-Base = DeclarativeBase
+
+
 
 __all__ = ["Base", "User", "Task"]
+
