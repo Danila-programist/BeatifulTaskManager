@@ -1,13 +1,13 @@
 import uuid
 from datetime import datetime
 
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import String, Boolean, DateTime, Text, Integer, ForeignKey
 from sqlalchemy.sql import text
 from sqlalchemy.dialects.postgresql import UUID
 
 
-from app.models import Base
+from app.models import Base, User
 
 
 class Task(Base):
@@ -34,3 +34,5 @@ class Task(Base):
         index=True,
         nullable=False,
     )
+
+    user: Mapped["User"] = relationship("User", back_populates="tasks", lazy="joined")
