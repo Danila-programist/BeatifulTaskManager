@@ -11,8 +11,16 @@ else
 MESSAGE = "Done"
 endif
 
-backend_env:  ##@Environment Activate Poetry shell
+backend_env:  ##@Environment Activate Poetry shell for backend
 	cd backend && poetry shell
+
+env_file: ##@Environment Create or update .env file
+	$(eval SHELL:=/bin/bash)
+	if [ ! -f .env ]; then \
+		cp .env.example .env; \
+	elif ! cmp -s .env .env.example; then \
+		cp .env.example .env; \
+	fi
 
 up:  ##@Docker Start docker-compose services
 	docker-compose up -d  
