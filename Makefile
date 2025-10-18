@@ -47,11 +47,17 @@ revision:  ##@Database Create Alembic revision local
 migration:  ##@Database Apply Alembic migrations local
 	cd backend && poetry run alembic upgrade head
 
-test_backend: ##@Testing Run tests for backend
-	cd backend && poetry run pytest -v
+test_backend: test-db ##@Testing Run tests for backend
+	cd backend && poetry run pytest -v && cd .. && make test-db-down
 
-test-cov_backend: ##@Testing Run tests with coverage for backend
-	cd backend && poetry run pytest --cov=. --cov-report=term:skip-covered
+test-cov_backend: test-db ##@Testing Run tests with coverage for backend
+	cd backend && poetry run pytest --cov=. --cov-report=term:skip-covered && cd .. && make test-db-down
+
+test-db: ##@Testing Apply test-db for backend
+	docker-compose -f docker-compose.test.yml up -d
+
+test-db-down: ##@Testing Remove test-db for backend
+	docker-compose -f docker-compose.test.yml down -v
 
 format:   ##@Code Format code with black
 	cd backend && poetry run black .
@@ -66,4 +72,4 @@ help: ##@Help Show this help
 %::
 	@echo $(MESSAGE)
 
-PHONY: up down backend_env help rebuild logs format test-cov_backend test_backend lint env_file
+PHONY: up down backend_env help rebuild logs format test-cov_backend test_backend lint env_file test-db
