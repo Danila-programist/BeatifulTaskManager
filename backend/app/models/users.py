@@ -2,7 +2,8 @@ import uuid
 from datetime import datetime
 
 from sqlalchemy.orm import Mapped, mapped_column
-from sqlalchemy import String, Boolean, DateTime, text
+from sqlalchemy import String, Boolean, DateTime
+from sqlalchemy.sql import text
 from sqlalchemy.dialects.postgresql import UUID
 
 from app.models import Base
@@ -11,7 +12,7 @@ from app.models import Base
 class User(Base):
     __tablename__ = "users"
 
-    id: Mapped[uuid.UUID] = mapped_column(
+    user_id: Mapped[uuid.UUID] = mapped_column(
         UUID(as_uuid=True),
         primary_key=True,
         default=uuid.uuid4,
