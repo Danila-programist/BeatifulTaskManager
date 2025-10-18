@@ -1,6 +1,3 @@
-import pytest
-
-
 class TestMain:
     def test_invalid_endpoint_returns_404(self, client):
         """Тест что несуществующий эндпоинт возвращает 404"""

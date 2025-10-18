@@ -11,4 +11,3 @@ def client() -> Generator[TestClient, None, None]:
     """Фикстура для тестового клиента (на всю сессию тестов)"""
     with TestClient(app) as test_client:
         yield test_client
-

@@ -32,6 +32,12 @@ test_backend: ##@Testing Run tests for backend
 test-cov_backend: ##@Testing Run tests with coverage for backend
 	cd backend && poetry run pytest --cov=. --cov-report=term:skip-covered
 
+format:   ##@Code Format code with black
+	cd backend && poetry run black .
+
+lint: ##@Code Lint code with pylint
+	cd backend && poetry run pylint app main.py tests
+
 help: ##@Help Show this help
 	@echo -e "Usage: make [target] ...\n"
 	@perl -e '$(HELP_FUN)' $(MAKEFILE_LIST)
@@ -39,4 +45,4 @@ help: ##@Help Show this help
 %::
 	@echo $(MESSAGE)
 
-PHONY: up down backend_env help rebuild logs
+PHONY: up down backend_env help rebuild logs format test-cov_backend test_backend lint
