@@ -55,9 +55,4 @@ make env_file
 make up
 ```
 
-3. Миграция базы данных
-
-```bash
-make migration 
-```
 
