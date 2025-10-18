@@ -11,6 +11,10 @@ else
 MESSAGE = "Done"
 endif
 
+include .env
+
+
+
 backend_env:  ##@Environment Activate Poetry shell for backend
 	cd backend && poetry shell
 
@@ -34,6 +38,9 @@ logs:   ##@Docker Show logs from docker-compose
 rebuild:  ##@Docker Rebuild and restart services
 	docker-compose down && docker-compose up -d --build
 
+psql:  ##@Database Open PostgreSQL inside docker container
+	docker exec -it $(DB_CONTAINER_NAME) psql -d $(DB_NAME) -U $(DB_USER)
+
 test_backend: ##@Testing Run tests for backend
 	cd backend && poetry run pytest -v
 
@@ -53,4 +60,4 @@ help: ##@Help Show this help
 %::
 	@echo $(MESSAGE)
 
-PHONY: up down backend_env help rebuild logs format test-cov_backend test_backend lint
+PHONY: up down backend_env help rebuild logs format test-cov_backend test_backend lint env_file
