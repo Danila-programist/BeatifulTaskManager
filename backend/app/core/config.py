@@ -5,7 +5,7 @@ from pydantic import PostgresDsn
 
 
 class Settings(BaseSettings):
-    # Database 
+    # Database
     DB_NAME: str
     DB_USER: str
     DB_PASSWORD: str

@@ -1,3 +1,3 @@
 from .token import ClientJWT
 
-__all__ = ['ClientJWT']
+__all__ = ["ClientJWT"]

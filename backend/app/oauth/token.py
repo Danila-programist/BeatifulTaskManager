@@ -1,9 +1,10 @@
 import datetime
 from typing import Dict, Optional
 
-import jwt 
+import jwt
 
 from app.core import settings
+
 
 class ClientJWT:
     def __init__(self, data: Optional[Dict[str, str]]):
