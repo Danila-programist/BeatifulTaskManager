@@ -1,4 +1,4 @@
-from app.oauth import ClientJWT
+from app.auth import ClientJWT
 
 
 def test_create_new_token():
