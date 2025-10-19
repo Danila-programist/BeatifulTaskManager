@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 
 
-task_router = APIRouter()
+task_router = APIRouter(tags=['tasks'])
 
 
 @task_router.get("/tasks")

@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 
 
-oauth_router = APIRouter(prefix="/auth")
+oauth_router = APIRouter(prefix="/auth", tags=['oauth'])
 
 
 @oauth_router.post("/register", summary="Регистрация нового пользователя")
