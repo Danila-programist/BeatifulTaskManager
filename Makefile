@@ -47,17 +47,24 @@ revision:  ##@Database Create Alembic revision local
 migration:  ##@Database Apply Alembic migrations local
 	cd backend && poetry run alembic upgrade head
 
-test_backend: test-db ##@Testing Run tests for backend
+test_backend: test-db-down test-db ##@Testing Run tests for backend
 	cd backend && poetry run pytest -v && cd .. && make test-db-down
 
-test-cov_backend: test-db ##@Testing Run tests with coverage for backend
+test-cov_backend: test-db-down test-db ##@Testing Run tests with coverage for backend
 	cd backend && poetry run pytest --cov=. --cov-report=term:skip-covered && cd .. && make test-db-down
 
 test-db: ##@Testing Apply test-db for backend
 	docker-compose -f docker-compose.test.yml up -d
+	@echo "Waiting for test_db to become healthy..."
+	@for i in $$(seq 1 60); do \
+		status=$$(docker inspect --format='{{.State.Health.Status}}' test_db 2>/dev/null || echo unknown); \
+		echo "health: $$status"; \
+		if [ "$$status" = "healthy" ]; then echo "test_db healthy"; exit 0; fi; \
+		sleep 1; \
+	done; echo "test_db failed to become healthy" && docker logs test_db && exit 1
 
 test-db-down: ##@Testing Remove test-db for backend
-	docker-compose -f docker-compose.test.yml down -v
+	docker-compose -f docker-compose.test.yml down -v --remove-orphans
 
 format:   ##@Code Format code with black
 	cd backend && poetry run black .

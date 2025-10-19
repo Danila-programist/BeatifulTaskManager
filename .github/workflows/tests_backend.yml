@@ -9,6 +9,20 @@ on:
 jobs:
   pytest:
     runs-on: ubuntu-latest
+    services:
+      test_db:
+        image: postgres:15
+        env:
+          POSTGRES_USER: user
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: taskmanager_test
+        ports:
+          - 5433:5432
+        options: >-
+          --health-cmd "pg_isready -U user -d taskmanager_test"
+          --health-interval 1s
+          --health-timeout 2s
+          --health-retries 30
 
     steps:
       - name: Checkout repository
@@ -26,7 +40,18 @@ jobs:
           pip install poetry
           poetry install --no-root
 
-      - name: Run Pytest
+      - name: Wait for database to be healthy
+        run: |
+          for i in $(seq 1 60); do
+            STATUS=$(docker inspect --format='{{.State.Health.Status}}' taskmanager_test_db_data 2>/dev/null || echo unknown)
+            echo "health: $STATUS"
+            if [ "$STATUS" = "healthy" ]; then echo "Database is healthy"; break; fi
+            sleep 1
+          done
+
+      - name: Run backend tests
+        env:
+          TEST_DATABASE_URL: postgresql+asyncpg://user:password@localhost:5433/taskmanager_test
         run: |
           cd backend
-          poetry run pytest tests --verbosity=3 --showlocals --log-level=DEBUG
+          poetry run make test_backend
