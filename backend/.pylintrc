@@ -2,7 +2,7 @@
 ignore=venv,migrations,__pycache__
 
 [MESSAGES CONTROL]
-disable=C0114, C0115, C0116, R0903
+disable=C0114, C0115, C0116, R0903, W0613, W0621, R0801
 
 [FORMAT]
 max-line-length=120

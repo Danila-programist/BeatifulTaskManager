@@ -2,6 +2,7 @@ import pytest
 
 from app.models import Task, User
 
+
 @pytest.mark.asyncio
 async def test_task_creation(db_session):
 

@@ -1,6 +1,7 @@
 import pytest
 from httpx import AsyncClient
 
+
 @pytest.mark.asyncio
 class TestMain:
     async def test_invalid_endpoint_returns_404(self, client: AsyncClient):

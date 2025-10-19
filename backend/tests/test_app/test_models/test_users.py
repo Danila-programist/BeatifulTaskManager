@@ -2,6 +2,7 @@ import pytest
 
 from app.models import User
 
+
 @pytest.mark.asyncio
 async def test_user_creation(db_session):
 
@@ -15,7 +16,6 @@ async def test_user_creation(db_session):
     db_session.add(user)
     await db_session.commit()
     await db_session.refresh(user)
-
 
     assert user.username == "testuser"
     assert user.email == "test@example.com"

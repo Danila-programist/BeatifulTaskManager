@@ -8,6 +8,7 @@ from main import app
 
 TEST_DATABASE_URL = "postgresql+asyncpg://user:password@localhost:5433/taskmanager_test"
 
+
 @pytest_asyncio.fixture(scope="function")
 async def engine():
     engine = create_async_engine(TEST_DATABASE_URL, echo=False)
