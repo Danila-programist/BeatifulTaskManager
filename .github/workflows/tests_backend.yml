@@ -33,4 +33,5 @@ jobs:
 
       - name: Run backend tests
         run: |
+          make env_file
           make test_backend
