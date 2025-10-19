@@ -53,5 +53,4 @@ jobs:
         env:
           TEST_DATABASE_URL: postgresql+asyncpg://user:password@localhost:5433/taskmanager_test
         run: |
-          cd backend
           poetry run make test_backend
