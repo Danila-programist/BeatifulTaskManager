@@ -13,8 +13,6 @@ class RegisterUser(BaseUser):
     password: str = Field(..., min_length=8)
     first_name: str
     last_name: str
-    #is_active: bool = True
-    #created_at: datetime = datetime.now()
 
 
 class LoginUser(BaseUser):
@@ -24,8 +22,8 @@ class LoginUser(BaseUser):
 class DatabaseUser(BaseUser):
     user_id: uuid.UUID
     email: EmailStr
-    password_hash: str 
+    password_hash: str
     first_name: str
     last_name: str
-    is_active: bool 
-    created_at: datetime 
+    is_active: bool
+    created_at: datetime

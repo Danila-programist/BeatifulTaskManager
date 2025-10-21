@@ -11,7 +11,7 @@ auth_router = APIRouter(prefix="/auth", tags=["auth"])
 
 
 @auth_router.post("/register", summary="Регистрация нового пользователя")
-async def register(user: RegisterUser, db: AsyncSession = Depends(get_db)): 
+async def register(user: RegisterUser, db: AsyncSession = Depends(get_db)):
     user_service = UserService(db)
     user_db: Optional[DatabaseUser] = await user_service.get_user(user.username)
 
@@ -23,7 +23,6 @@ async def register(user: RegisterUser, db: AsyncSession = Depends(get_db)):
         status_code=status.HTTP_404_NOT_FOUND,
         detail="Incorrect password or nickname",
     )
-
 
 
 @auth_router.post("/login", summary="Авторизация пользователя")
