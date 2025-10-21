@@ -13,8 +13,8 @@ class RegisterUser(BaseUser):
     password: str = Field(..., min_length=8)
     first_name: str
     last_name: str
-    is_active: bool = True
-    created_at: datetime = datetime.now()
+    #is_active: bool = True
+    #created_at: datetime = datetime.now()
 
 
 class LoginUser(BaseUser):

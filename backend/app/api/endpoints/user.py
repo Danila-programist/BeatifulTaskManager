@@ -13,7 +13,7 @@ auth_router = APIRouter(prefix="/auth", tags=["auth"])
 @auth_router.post("/register", summary="Регистрация нового пользователя")
 async def register(user: RegisterUser, db: AsyncSession = Depends(get_db)): 
     user_service = UserService(db)
-    user_db: Optional[DatabaseUser] = await user_service.get_user(user)
+    user_db: Optional[DatabaseUser] = await user_service.get_user(user.username)
 
     if user_db is None:
         await user_service.add_new_user(user)
