@@ -28,17 +28,13 @@ async def register(user: RegisterUser, db: AsyncSession = Depends(get_db)):
 
 
 @auth_router.post("/login", summary="Авторизация пользователя")
-async def login(
-    user: LoginUser, response: Response, db: AsyncSession = Depends(get_db)
-):
+async def login(user: LoginUser, response: Response, db: AsyncSession = Depends(get_db)): 
     user_service = UserService(db)
     user_db: Optional[DatabaseUser] = await user_service.get_user(user.username)
 
     if user_db and pwd_manager.verify_password(user.password, user_db.password_hash):
         token = ClientJWT(data={"sub": user.username})
-        response.set_cookie(
-            key="task_manager_token", value=token.create_token(), httponly=True
-        )
+        response.set_cookie(key='task_manager_token', value=token.create_token(), httponly=True)
         return {"Message": "User was authorized"}
 
     raise HTTPException(
@@ -47,7 +43,8 @@ async def login(
     )
 
 
+
 @auth_router.post("/logout", summary="Выход пользователя из аккаунта")
-async def logout(response: Response):
+async def logout(response: Response): 
     response.delete_cookie(key="task_manager_token")
     return {"Message": "Successfully logged out"}
