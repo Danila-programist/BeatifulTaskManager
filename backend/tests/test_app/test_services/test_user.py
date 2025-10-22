@@ -62,6 +62,7 @@ async def test_get_user_returns_none_if_not_found(db_session):
     result = await service.get_user("non_existing_user")
     assert result is None
 
+
 @pytest.mark.asyncio
 async def test_add_user_with_duplicate_email_raises_error(db_session):
     service = UserService(db_session)
@@ -76,7 +77,7 @@ async def test_add_user_with_duplicate_email_raises_error(db_session):
 
     user2 = RegisterUser(
         username="uniqueuser2",
-        email="duplicate@example.com", 
+        email="duplicate@example.com",
         password="AnotherPass456",
         first_name="User",
         last_name="Two",
@@ -92,12 +93,9 @@ async def test_add_user_with_duplicate_email_raises_error(db_session):
 async def test_add_user_with_short_username_fails_validation():
     with pytest.raises(ValidationError):
         RegisterUser(
-            username="sh", 
+            username="sh",
             email="short@example.com",
             password="Pass12345",
             first_name="Short",
             last_name="Name",
         )
-        
-
-    

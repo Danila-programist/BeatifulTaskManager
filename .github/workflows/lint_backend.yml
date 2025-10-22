@@ -30,4 +30,4 @@ jobs:
       - name: Run Pylint
         run: |
           cd backend
-          poetry run pylint main.py tests
+          poetry run pylint main.py tests app
