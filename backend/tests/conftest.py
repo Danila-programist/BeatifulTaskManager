@@ -1,11 +1,11 @@
 import pytest_asyncio
 import pytest
 from httpx import AsyncClient, ASGITransport
-from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession, AsyncEngine
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession, AsyncEngine
 
-from app.models import Base
 from main import app
+from app.models import Base
 from app.db import get_db
 
 TEST_DATABASE_URL = "postgresql+asyncpg://user:password@localhost:5433/taskmanager_test"
