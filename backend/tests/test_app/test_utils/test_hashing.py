@@ -6,8 +6,9 @@ def test_hash_password_returns_hashed_value(plain_password: str):
 
     assert isinstance(hashed, str)
     assert hashed != plain_password
-    assert hashed.startswith("$2b$") or hashed.startswith("$2a$"), \
-        "bcrypt-хэши должны начинаться с $2b$ или $2a$"
+    assert hashed.startswith("$2b$") or hashed.startswith(
+        "$2a$"
+    ), "bcrypt-хэши должны начинаться с $2b$ или $2a$"
 
 
 def test_verify_password_success(plain_password: str):

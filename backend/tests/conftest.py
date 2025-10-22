@@ -40,6 +40,7 @@ async def client():
     async with AsyncClient(transport=transport, base_url="http://test") as ac:
         yield ac
 
+
 @pytest.fixture
 def plain_password():
     return "MySecurePassword123!"
