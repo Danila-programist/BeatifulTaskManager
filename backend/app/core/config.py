@@ -25,7 +25,10 @@ class Settings(BaseSettings):
 
     @property
     def ASYNC_DATABASE_DSN(self) -> PostgresDsn:  # pylint: disable=C0103
-        return f"postgresql+asyncpg://{self.DB_USER}:{self.DB_PASSWORD}@{self.DB_HOST}:{self.DB_PORT}/{self.DB_NAME}"
+        db_name = (
+            f"{self.DB_NAME}_test" if os.getenv("TESTING") else self.DB_NAME
+        )
+        return f"postgresql+asyncpg://{self.DB_USER}:{self.DB_PASSWORD}@{self.DB_HOST}:{self.DB_PORT}/{db_name}"
 
 
 settings = Settings()

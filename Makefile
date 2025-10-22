@@ -48,10 +48,10 @@ migration:  ##@Database Apply Alembic migrations local
 	cd backend && poetry run alembic upgrade head
 
 test_backend: test-db-down test-db ##@Testing Run tests for backend
-	cd backend && poetry run pytest -v && cd .. && make test-db-down
+	cd backend && TESTING=1 poetry run pytest -v && cd .. && make test-db-down
 
 test-cov_backend: test-db-down test-db ##@Testing Run tests with coverage for backend
-	cd backend && poetry run pytest --cov=. --cov-report=term:skip-covered && cd .. && make test-db-down
+	cd backend && TESTING=1 poetry run pytest --cov=. --cov-report=term:skip-covered && cd .. && make test-db-down
 
 test-db: ##@Testing Apply test-db for backend
 	docker-compose -f docker-compose.test.yml up -d

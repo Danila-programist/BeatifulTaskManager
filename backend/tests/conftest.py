@@ -6,6 +6,7 @@ from sqlalchemy.orm import sessionmaker
 
 from app.models import Base
 from main import app
+from app.db import get_db
 
 TEST_DATABASE_URL = "postgresql+asyncpg://user:password@localhost:5433/taskmanager_test"
 
@@ -44,3 +45,13 @@ async def client():
 @pytest.fixture
 def plain_password():
     return "MySecurePassword123!"
+
+
+@pytest_asyncio.fixture(scope="function")
+async def override_db_session(db_session: AsyncSession):
+    async def _get_test_session():
+        yield db_session
+
+    app.dependency_overrides[get_db] = _get_test_session
+    yield
+    app.dependency_overrides.pop(get_db, None)
