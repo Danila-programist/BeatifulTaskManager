@@ -1,5 +1,7 @@
 import pytest
 from sqlalchemy import select
+from sqlalchemy.exc import IntegrityError
+from pydantic import ValidationError
 
 from app.services import UserService
 from app.models import User
@@ -59,3 +61,43 @@ async def test_get_user_returns_none_if_not_found(db_session):
     service = UserService(db_session)
     result = await service.get_user("non_existing_user")
     assert result is None
+
+@pytest.mark.asyncio
+async def test_add_user_with_duplicate_email_raises_error(db_session):
+    service = UserService(db_session)
+
+    user1 = RegisterUser(
+        username="uniqueuser1",
+        email="duplicate@example.com",
+        password="StrongPass123",
+        first_name="User",
+        last_name="One",
+    )
+
+    user2 = RegisterUser(
+        username="uniqueuser2",
+        email="duplicate@example.com", 
+        password="AnotherPass456",
+        first_name="User",
+        last_name="Two",
+    )
+
+    await service.add_new_user(user1)
+
+    with pytest.raises(IntegrityError):
+        await service.add_new_user(user2)
+
+
+@pytest.mark.asyncio
+async def test_add_user_with_short_username_fails_validation():
+    with pytest.raises(ValidationError):
+        RegisterUser(
+            username="sh", 
+            email="short@example.com",
+            password="Pass12345",
+            first_name="Short",
+            last_name="Name",
+        )
+        
+
+    
