@@ -1,4 +1,4 @@
-from .user import LoginUser, RegisterUser, DatabaseUser
+from .user import LoginUser, RegisterUser, DatabaseUser, BaseUser
 
 
-__all__ = ["LoginUser", "RegisterUser", "DatabaseUser"]
+__all__ = ["LoginUser", "RegisterUser", "DatabaseUser", 'BaseUser']
