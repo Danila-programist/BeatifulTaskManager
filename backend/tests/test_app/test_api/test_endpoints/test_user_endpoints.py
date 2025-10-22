@@ -1,6 +1,7 @@
 import pytest
 from httpx import AsyncClient
 
+
 @pytest.mark.asyncio
 async def test_register_user_success(client: AsyncClient, override_db_session):
     user_data = {

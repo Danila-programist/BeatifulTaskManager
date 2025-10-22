@@ -13,7 +13,7 @@ def test_baseuser_valid_username():
 
 def test_baseuser_too_short_username():
     with pytest.raises(ValidationError):
-        BaseUser(username="sh")  
+        BaseUser(username="sh")
 
 
 def test_registeruser_valid_data():
@@ -54,7 +54,7 @@ def test_registeruser_short_password():
 def test_registeruser_short_username():
     with pytest.raises(ValidationError):
         RegisterUser(
-            username="sh",  
+            username="sh",
             email="test@example.com",
             password="StrongPass123",
             first_name="John",
@@ -78,7 +78,7 @@ def test_databaseuser_valid_data():
         first_name="John",
         last_name="Doe",
         is_active=True,
-        created_at="2025-01-01T12:00:00Z"
+        created_at="2025-01-01T12:00:00Z",
     )
     assert user.user_id == user_id
     assert user.is_active is True
@@ -95,5 +95,5 @@ def test_databaseuser_invalid_uuid():
             first_name="John",
             last_name="Doe",
             is_active=True,
-            created_at="2025-01-01T12:00:00Z"
+            created_at="2025-01-01T12:00:00Z",
         )
