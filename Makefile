@@ -76,7 +76,17 @@ help: ##@Help Show this help
 	@echo -e "Usage: make [target] ...\n"
 	@perl -e '$(HELP_FUN)' $(MAKEFILE_LIST)
 
+clean: ##@Code Remove Python cache files and directories
+	@echo "Cleaning Python cache files..."
+	@echo "Removing __pycache__ directories with sudo..."
+	@for dir in $$(find . -type d -name "__pycache__"); do \
+		echo "Removing: $$dir"; \
+		sudo rm -rf "$$dir"; \
+	done
+	@rm -rf backend/.coverage 2>/dev/null || true
+	@echo "Python cache cleaned!"
+	
 %::
 	@echo $(MESSAGE)
 
-PHONY: up down backend_env help rebuild logs format test-cov_backend test_backend lint env_file test-db
+PHONY: up down backend_env help rebuild logs format test-cov_backend test_backend lint env_file test-db clean
