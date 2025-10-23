@@ -63,3 +63,33 @@ class TaskService:
         )
         res = await self._session.execute(stmt)
         return res.scalar_one_or_none()
+
+    async def update_task(self, task_id: int, task_data: TaskRequest) -> Optional[Task]:
+        user_id = await self._get_user_id()
+        if not user_id:
+            return None
+
+        task = await self.get_user_task_by_id(task_id)
+        if not task:
+            return None
+
+        update_data = task_data.model_dump(exclude_unset=True)
+        for field, value in update_data.items():
+            setattr(task, field, value)
+
+        await self._session.commit()
+        await self._session.refresh(task)
+        return task
+
+    async def delete_task(self, task_id: int) -> bool:
+        user_id = await self._get_user_id()
+        if not user_id:
+            return False
+
+        task = await self.get_user_task_by_id(task_id)
+        if not task:
+            return False
+
+        task.is_active = False
+        await self._session.commit()
+        return True

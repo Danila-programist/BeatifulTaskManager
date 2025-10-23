@@ -58,11 +58,36 @@ async def get_task_by_id(
 
 @task_router.put("/tasks/{task_id}")
 async def change_task_by_id(
-    current_user: str = Depends(get_current_user), db: AsyncSession = Depends(get_db)
-): ...
+    task_id: int,
+    task_req: TaskRequest,
+    current_user: str = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    task_service = TaskService(db, current_user.username)
+    updated_task = await task_service.update_task(task_id, task_req)
+
+    if not updated_task:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Task was not found or you do not have the acception for this task",
+        )
+
+    return updated_task
 
 
 @task_router.delete("/tasks/{task_id}")
 async def delete_tast_by_id(
-    current_user: str = Depends(get_current_user), db: AsyncSession = Depends(get_db)
-): ...
+    task_id: int,
+    current_user: str = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    task_service = TaskService(db, current_user.username)
+    is_deleted_task: bool = await task_service.delete_task(task_id)
+
+    if not is_deleted_task:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Task was not found or you do not have the acception for this task",
+        )
+
+    return {"message": "task was deleted"}
