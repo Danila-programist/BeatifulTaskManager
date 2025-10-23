@@ -3,7 +3,7 @@ from datetime import datetime
 from uuid import UUID
 from enum import Enum
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ConfigDict
 
 
 class TaskStatus(str, Enum):
@@ -23,6 +23,8 @@ class TaskRequest(BaseTask):
 
 
 class TaskResponse(BaseTask):
+    model_config = ConfigDict(from_attributes=True) 
+    
     task_id: int
     created_at: datetime
     updated_at: datetime
