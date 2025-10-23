@@ -33,10 +33,9 @@ class TaskService:
         res = await self._session.execute(stmt)
         return res.scalars().all()
 
-
     async def create_task(self, task_data: TaskRequest) -> Optional[Task]:
         user_id = await self._get_user_id()
-        
+
         if not user_id:
             return None
 
@@ -44,12 +43,10 @@ class TaskService:
             title=task_data.title,
             description=task_data.description,
             status=task_data.status,
-            user_id=user_id
+            user_id=user_id,
         )
 
         self._session.add(new_task)
         await self._session.commit()
         await self._session.refresh(new_task)
         return new_task
-
-   
