@@ -35,4 +35,4 @@ class Task(Base):
         nullable=False,
     )
 
-    user = relationship("User", back_populates="tasks", lazy="joined")
+    user = relationship("User", back_populates="tasks", lazy="select")

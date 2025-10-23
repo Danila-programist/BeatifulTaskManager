@@ -40,8 +40,20 @@ async def create_new_task(
 
 @task_router.get("/tasks/{task_id}")
 async def get_task_by_id(
-    current_user: str = Depends(get_current_user), db: AsyncSession = Depends(get_db)
-): ...
+    task_id: int,
+    current_user: str = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    task_service = TaskService(db, current_user.username)
+    task = await task_service.get_user_task_by_id(task_id)
+
+    if not task:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Task was not found or you do not have the acception for this task",
+        )
+
+    return task
 
 
 @task_router.put("/tasks/{task_id}")

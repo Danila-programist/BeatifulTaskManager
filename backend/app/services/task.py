@@ -50,3 +50,16 @@ class TaskService:
         await self._session.commit()
         await self._session.refresh(new_task)
         return new_task
+
+    async def get_user_task_by_id(self, task_id: int) -> Optional[Task]:
+        user_id = await self._get_user_id()
+        if not user_id:
+            return None
+
+        stmt = select(Task).where(
+            and_(
+                Task.task_id == task_id, Task.user_id == user_id, Task.is_active == True
+            )
+        )
+        res = await self._session.execute(stmt)
+        return res.scalar_one_or_none()

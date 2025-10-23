@@ -23,8 +23,8 @@ class TaskRequest(BaseTask):
 
 
 class TaskResponse(BaseTask):
-    model_config = ConfigDict(from_attributes=True) 
-    
+    model_config = ConfigDict(from_attributes=True)
+
     task_id: int
     created_at: datetime
     updated_at: datetime
