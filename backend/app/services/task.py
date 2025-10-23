@@ -1,3 +1,4 @@
+# pylint: disable=singleton-comparison
 from typing import List, Optional
 from uuid import UUID
 
@@ -58,7 +59,9 @@ class TaskService:
 
         stmt = select(Task).where(
             and_(
-                Task.task_id == task_id, Task.user_id == user_id, Task.is_active == True
+                Task.task_id == task_id,
+                Task.user_id == user_id,
+                Task.is_active == True,
             )
         )
         res = await self._session.execute(stmt)
