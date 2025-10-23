@@ -84,6 +84,7 @@ clean: ##@Code Remove Python cache files and directories
 		sudo rm -rf "$$dir"; \
 	done
 	@rm -rf backend/.coverage 2>/dev/null || true
+	@rm -rf backend/.pytest_cache 2>/dev/null || true
 	@echo "Python cache cleaned!"
 	
 %::
