@@ -6,7 +6,7 @@ from enum import Enum
 from pydantic import BaseModel, Field
 
 
-class TaskStasus(str, Enum):
+class TaskStatus(str, Enum):
     PENDING = "pending"
     IN_PROGRESS = "in_progress"
     COMPLETED = "completed"
@@ -15,7 +15,7 @@ class TaskStasus(str, Enum):
 class BaseTask(BaseModel):
     title: str = Field(..., max_length=256)
     description: Optional[str] = None
-    status: TaskStasus = TaskStasus.PENDING
+    status: TaskStatus = TaskStatus.PENDING
 
 
 class TaskRequest(BaseTask):
