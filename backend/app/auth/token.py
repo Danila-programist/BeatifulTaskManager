@@ -19,3 +19,5 @@ class ClientJWT:
         return jwt.encode(
             payload=payload, key=settings.SECRET, algorithm=settings.ALGORYTHM
         )
+
+
