@@ -3,13 +3,15 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.auth import get_current_user
 from app.db import get_db
+from app.services import TaskService
+from app.api.schemas import DatabaseUser
 
 task_router = APIRouter(tags=["tasks"])
 
 
 @task_router.get("/tasks")
-async def get_all_tasks(current_user: str = Depends(get_current_user), db: AsyncSession = Depends(get_db)): 
-
+async def get_all_tasks(current_user: DatabaseUser = Depends(get_current_user), db: AsyncSession = Depends(get_db)): 
+    task_service = TaskService(db, current_user.username)
 
 @task_router.post("/tasks")
 async def create_new_task(current_user: str = Depends(get_current_user), db: AsyncSession = Depends(get_db)): ...
