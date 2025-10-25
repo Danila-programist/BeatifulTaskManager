@@ -10,24 +10,29 @@ class UserInfo(BaseModel):
     first_name: str
     last_name: str
 
+
 class TasksOverview(BaseModel):
     total_tasks: int = 0
     active_tasks: int = 0
     completed_tasks: int = 0
     completion_rate: Optional[int] = None
 
-    @model_validator(mode='after')
-    def calculate_completion_rate(self) -> 'TasksOverview':
+    @model_validator(mode="after")
+    def calculate_completion_rate(self) -> "TasksOverview":
         if self.total_tasks > 0:
-            self.completion_rate = round((self.completed_tasks / self.total_tasks) * 100, 2)
+            self.completion_rate = round(
+                (self.completed_tasks / self.total_tasks) * 100, 2
+            )
         else:
             self.completion_rate = None
         return self
-    
+
+
 class StatusDistribution(BaseModel):
     pending: int = 0
     in_progress: int = 0
     completed: int = 0
+
 
 class ProductivityMetrics(BaseModel):
     tasks_created_today: int = 0
@@ -35,10 +40,12 @@ class ProductivityMetrics(BaseModel):
     tasks_created_this_week: int = 0
     tasks_completed_this_week: int = 0
 
+
 class RecentActivity(BaseModel):
     last_task_created: Optional[datetime] = None
     last_task_completed: Optional[datetime] = None
     most_active_day: Optional[str] = None
+
 
 class TasksCreatedByWeekday(BaseModel):
     monday: int = 0
@@ -48,6 +55,7 @@ class TasksCreatedByWeekday(BaseModel):
     friday: int = 0
     saturday: int = 0
     sunday: int = 0
+
 
 class AnalyticsManager:
     user_info: UserInfo
