@@ -60,9 +60,12 @@ async def override_db_session(db_session: AsyncSession):
     yield
     app.dependency_overrides.pop(get_db, None)
 
+
 @pytest_asyncio.fixture(scope="function")
-async def authenticated_client(client: AsyncClient, override_db_session, db_session: AsyncSession):
-    
+async def authenticated_client(
+    client: AsyncClient, override_db_session, db_session: AsyncSession
+):
+
     test_user = User(
         user_id=uuid.uuid4(),
         username="testuser",
@@ -70,7 +73,17 @@ async def authenticated_client(client: AsyncClient, override_db_session, db_sess
         password_hash=pwd_manager.hash_password("testpassword123"),
         first_name="Test",
         last_name="User",
-        is_active=True
+        is_active=True,
     )
-    
-    db_session.add
+
+    db_session.add(test_user)
+    await db_session.commit()
+    await db_session.refresh(test_user)
+
+    login_data = {"username": "testuser", "password": "testpassword123"}
+    login_response = await client.post("/api/v1/auth/login", json=login_data)
+
+    assert login_response.status_code == 200
+    assert "task_manager_token" in login_response.cookies
+
+    return client
