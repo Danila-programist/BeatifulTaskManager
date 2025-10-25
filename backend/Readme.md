@@ -224,12 +224,10 @@
     "last_task_completed": "datetime | null",
     "most_active_day": "string"
   },
-  "time_based_analytics": {
-    "tasks_created_by_weekday": {
-      "monday": "integer",
-      "tuesday": "integer",
-       // ... все дни недели
-    }
+  "tasks_created_by_weekday": {
+    "monday": "integer",
+    "tuesday": "integer",
+    // ... все дни недели
   }
 }
 
