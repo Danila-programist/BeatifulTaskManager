@@ -11,7 +11,7 @@ from app.api.schemas import DatabaseUser, TaskResponse, TaskRequest
 task_router = APIRouter(tags=["tasks"])
 
 
-@task_router.get("/tasks")
+@task_router.get("/tasks", summary="Все доступные задачи текущего пользователя")
 async def get_all_tasks(
     current_user: DatabaseUser = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
@@ -21,7 +21,7 @@ async def get_all_tasks(
     return [TaskResponse.model_validate(task) for task in tasks]
 
 
-@task_router.post("/tasks")
+@task_router.post("/tasks", summary="Создание текущем пользователем новой задачи")
 async def create_new_task(
     task_req: TaskRequest,
     current_user: str = Depends(get_current_user),
@@ -38,7 +38,10 @@ async def create_new_task(
     return {"message": "Task was added"}
 
 
-@task_router.get("/tasks/{task_id}")
+@task_router.get(
+    "/tasks/{task_id}",
+    summary="Получение информации текущем пользователем о конктреной задаче",
+)
 async def get_task_by_id(
     task_id: int,
     current_user: str = Depends(get_current_user),
@@ -56,7 +59,10 @@ async def get_task_by_id(
     return task
 
 
-@task_router.put("/tasks/{task_id}")
+@task_router.put(
+    "/tasks/{task_id}",
+    summary="Изменение информации текущем пользователем о своей конректной задаче",
+)
 async def change_task_by_id(
     task_id: int,
     task_req: TaskRequest,
@@ -75,7 +81,9 @@ async def change_task_by_id(
     return updated_task
 
 
-@task_router.delete("/tasks/{task_id}")
+@task_router.delete(
+    "/tasks/{task_id}", summary="Удаление текущем пользователем своей задачи"
+)
 async def delete_tast_by_id(
     task_id: int,
     current_user: str = Depends(get_current_user),
