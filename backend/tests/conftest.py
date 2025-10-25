@@ -1,3 +1,5 @@
+import uuid
+
 import pytest_asyncio
 import pytest
 from httpx import AsyncClient, ASGITransport
@@ -5,8 +7,10 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession, AsyncEngine
 
 from main import app
-from app.models import Base
+from app.models import Base, User
 from app.db import get_db
+from app.utils import pwd_manager
+
 
 TEST_DATABASE_URL = "postgresql+asyncpg://user:password@localhost:5433/taskmanager_test"
 
@@ -55,3 +59,18 @@ async def override_db_session(db_session: AsyncSession):
     app.dependency_overrides[get_db] = _get_test_session
     yield
     app.dependency_overrides.pop(get_db, None)
+
+@pytest_asyncio.fixture(scope="function")
+async def authenticated_client(client: AsyncClient, override_db_session, db_session: AsyncSession):
+    
+    test_user = User(
+        user_id=uuid.uuid4(),
+        username="testuser",
+        email="testuser@example.com",
+        password_hash=pwd_manager.hash_password("testpassword123"),
+        first_name="Test",
+        last_name="User",
+        is_active=True
+    )
+    
+    db_session.add
