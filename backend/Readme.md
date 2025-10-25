@@ -143,21 +143,6 @@
 
 - Параметры: task_id - integer ID задачи
 
-- Тело запроса:
-
-```json
-{
-  "task_id": "integer",
-  "title": "string",
-  "description": "string | null",
-  "status": "pending | in_progress | completed",
-  "created_at": "datetime",
-  "updated_at": "datetime",
-  "is_active": "boolean",
-  "user_id": "UUID"
-}
-```
-
 - Успешный ответ: 200 OK 
 
 - Ошибки: 404 Not Found - задача не найдена или нет доступа
