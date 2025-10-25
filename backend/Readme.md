@@ -178,9 +178,7 @@
 
 - Успешный ответ: 200 OK
 
-```json
-{"message": "task was deleted"}
-```
+
 - Ошибки: 404 Not Found - задача не найдена или нет доступа
 
 
@@ -189,6 +187,53 @@
 📊 Получение аналитики
 
 - Метод: GET /api/v1/analytics
+
+- Описание: Получение основной информации о задачах пользователя
+
+- Успешный ответ: 200 OK
+
+
+```json
+
+{
+  "user_info": {
+    "username": "string",
+    "email": "string",
+    "first_name": "string",
+    "last_name": "string"
+  },
+  "tasks_overview": {
+    "total_tasks": "integer",
+    "active_tasks": "integer",
+    "completed_tasks": "integer",
+    "completion_rate": "float (0-1)"
+  },
+  "status_distribution": {
+    "pending": "integer",
+    "in_progress": "integer", 
+    "completed": "integer"
+  },
+  "productivity_metrics": {
+    "tasks_created_today": "integer",
+    "tasks_completed_today": "integer",
+    "tasks_created_this_week": "integer",
+    "tasks_completed_this_week": "integer",
+  },
+  "recent_activity": {
+    "last_task_created": "datetime | null",
+    "last_task_completed": "datetime | null",
+    "most_active_day": "string"
+  },
+  "time_based_analytics": {
+    "tasks_created_by_weekday": {
+      "monday": "integer",
+      "tuesday": "integer",
+       // ... все дни недели
+    }
+  }
+}
+
+```
 
 ### Схематичное представление реализации бэкенда
 
