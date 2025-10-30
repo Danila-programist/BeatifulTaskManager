@@ -24,7 +24,7 @@ async def get_all_tasks(
 @task_router.post("/tasks", summary="Создание текущем пользователем новой задачи")
 async def create_new_task(
     task_req: TaskRequest,
-    current_user: str = Depends(get_current_user),
+    current_user: DatabaseUser = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
     task_service = TaskService(db, current_user.username)
@@ -44,7 +44,7 @@ async def create_new_task(
 )
 async def get_task_by_id(
     task_id: int,
-    current_user: str = Depends(get_current_user),
+    current_user: DatabaseUser = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
     task_service = TaskService(db, current_user.username)
@@ -66,7 +66,7 @@ async def get_task_by_id(
 async def change_task_by_id(
     task_id: int,
     task_req: TaskRequest,
-    current_user: str = Depends(get_current_user),
+    current_user: DatabaseUser = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
     task_service = TaskService(db, current_user.username)
@@ -86,7 +86,7 @@ async def change_task_by_id(
 )
 async def delete_tast_by_id(
     task_id: int,
-    current_user: str = Depends(get_current_user),
+    current_user: DatabaseUser = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
     task_service = TaskService(db, current_user.username)
