@@ -37,7 +37,7 @@ class AnalyticsService:
     async def get_tasks_overview(self) -> TasksOverview: 
         stmt = select(
             func.count(Task.task_id).label('total_tasks'),
-            func.count(Task.task_id).filter(Task.status == 'pending').label('active_tasks'),
+            func.count(Task.task_id).filter(Task.status == 'in_progress').label('active_tasks'),
             func.count(Task.task_id).filter(Task.status == 'completed').label('completed_tasks')
         ).where(
             Task.user_id == self._user.user_id,
@@ -48,9 +48,9 @@ class AnalyticsService:
         stats = res.one()
         
         return TasksOverview(
-            total_tasks=stats.total_tasks or 0,
-            active_tasks=stats.active_tasks or 0,
-            completed_tasks=stats.completed_tasks or 0
+            total_tasks=stats.total_tasks,
+            active_tasks=stats.active_tasks,
+            completed_tasks=stats.completed_tasks
         )
 
     async def get_productive_metrics(self) -> ProductivityMetrics:
@@ -139,24 +139,24 @@ class AnalyticsService:
         weekday_data = result.all()
         
         weekday_counts = {
-            0: 0,  # Monday
-            1: 0,  # Tuesday
-            2: 0,  # Wednesday
-            3: 0,  # Thursday
-            4: 0,  # Friday
-            5: 0,  # Saturday
-            6: 0   # Sunday
+            0: 0,  # Sunday
+            1: 0,  # Monday
+            2: 0,  # Tuesday
+            3: 0,  # Wednesday
+            4: 0,  # Thursday
+            5: 0,  # Friday
+            6: 0   # Saturday
         }
         
         for row in weekday_data:
             weekday_counts[int(row.weekday_num)] = row.count
         
         return TasksCreatedByWeekday(
-            monday=weekday_counts[0],
-            tuesday=weekday_counts[1],
-            wednesday=weekday_counts[2],
-            thursday=weekday_counts[3],
-            friday=weekday_counts[4],
-            saturday=weekday_counts[5],
-            sunday=weekday_counts[6]
+            monday=weekday_counts[1],    # Monday = 1
+            tuesday=weekday_counts[2],   # Tuesday = 2
+            wednesday=weekday_counts[3], # Wednesday = 3
+            thursday=weekday_counts[4],  # Thursday = 4
+            friday=weekday_counts[5],    # Friday = 5
+            saturday=weekday_counts[6],  # Saturday = 6
+            sunday=weekday_counts[0]     # Sunday = 0
         )
