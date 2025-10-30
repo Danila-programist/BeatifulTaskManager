@@ -4,3 +4,4 @@ __pycache__
 .env
 backend/alembic/versions/*
 .vscode
+backend/logs

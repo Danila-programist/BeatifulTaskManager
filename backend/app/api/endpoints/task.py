@@ -7,6 +7,7 @@ from app.auth import get_current_user
 from app.db import get_db
 from app.services import TaskService
 from app.api.schemas import DatabaseUser, TaskResponse, TaskRequest
+from app.utils import logger
 
 task_router = APIRouter(tags=["tasks"])
 
@@ -16,8 +17,10 @@ async def get_all_tasks(
     current_user: DatabaseUser = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ) -> List[TaskResponse]:
+    logger.info("Получен доступ к ручке задач")
     task_service = TaskService(db, current_user.username)
     tasks = await task_service.get_user_tasks()
+    logger.info("Вывод списка задач")
     return [TaskResponse.model_validate(task) for task in tasks]
 
 
@@ -27,6 +30,7 @@ async def create_new_task(
     current_user: DatabaseUser = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
+    logger.info("Получен доступ к ручке создания задачи")
     task_service = TaskService(db, current_user.username)
     task = await task_service.create_task(task_req)
 
@@ -35,6 +39,7 @@ async def create_new_task(
             status_code=status.HTTP_400_BAD_REQUEST, detail="Task was not created"
         )
 
+    logger.info("Задача создана")
     return {"message": "Task was added"}
 
 
@@ -47,6 +52,7 @@ async def get_task_by_id(
     current_user: DatabaseUser = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
+    logger.info("Получен доступ к ручке получения ID задачи")
     task_service = TaskService(db, current_user.username)
     task = await task_service.get_user_task_by_id(task_id)
 
@@ -55,7 +61,7 @@ async def get_task_by_id(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="Task was not found or you do not have the acception for this task",
         )
-
+    logger.info("Вывод задачи")
     return task
 
 
@@ -69,6 +75,7 @@ async def change_task_by_id(
     current_user: DatabaseUser = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
+    logger.info("Получен доступ к ручке задачи для изменения")
     task_service = TaskService(db, current_user.username)
     updated_task = await task_service.update_task(task_id, task_req)
 
@@ -77,7 +84,7 @@ async def change_task_by_id(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="Task was not found or you do not have the acception for this task",
         )
-
+    logger.info("Задача ручки изменена")
     return updated_task
 
 
@@ -89,6 +96,7 @@ async def delete_tast_by_id(
     current_user: DatabaseUser = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
+    logger.info("Получен доступ к ручке мягкого удаления задачи")
     task_service = TaskService(db, current_user.username)
     is_deleted_task: bool = await task_service.delete_task(task_id)
 
@@ -97,5 +105,5 @@ async def delete_tast_by_id(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="Task was not found or you do not have the acception for this task",
         )
-
+    logger.info("Задача мягко удалена")
     return {"message": "task was deleted"}
