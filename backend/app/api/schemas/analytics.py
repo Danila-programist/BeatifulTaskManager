@@ -12,9 +12,9 @@ class UserInfo(BaseModel):
 
 
 class TasksOverview(BaseModel):
-    total_tasks: int = 0
-    active_tasks: int = 0
-    completed_tasks: int = 0
+    total_tasks: int = Field(default=0, ge=0)
+    active_tasks: int = Field(default=0, ge=0)
+    completed_tasks: int = Field(default=0, ge=0)
     completion_rate: Optional[int] = None
 
     @model_validator(mode="after")
@@ -29,10 +29,10 @@ class TasksOverview(BaseModel):
 
 
 class ProductivityMetrics(BaseModel):
-    tasks_created_today: int = 0
-    tasks_completed_today: int = 0
-    tasks_created_this_week: int = 0
-    tasks_completed_this_week: int = 0
+    tasks_created_today: int = Field(default=0, ge=0)
+    tasks_completed_today: int = Field(default=0, ge=0)
+    tasks_created_this_week: int = Field(default=0, ge=0)
+    tasks_completed_this_week: int = Field(default=0, ge=0)
 
 
 class RecentActivity(BaseModel):
@@ -42,13 +42,13 @@ class RecentActivity(BaseModel):
 
 
 class TasksCreatedByWeekday(BaseModel):
-    monday: int = 0
-    tuesday: int = 0
-    wednesday: int = 0
-    thursday: int = 0
-    friday: int = 0
-    saturday: int = 0
-    sunday: int = 0
+    monday: int = Field(default=0, ge=0)
+    tuesday: int = Field(default=0, ge=0)
+    wednesday: int = Field(default=0, ge=0)
+    thursday: int = Field(default=0, ge=0)
+    friday: int = Field(default=0, ge=0)
+    saturday: int = Field(default=0, ge=0)
+    sunday: int = Field(default=0, ge=0)
 
 
 class AnalyticsManager(BaseModel):
