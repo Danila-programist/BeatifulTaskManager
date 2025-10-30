@@ -1,0 +1,33 @@
+name: Lint_backend
+
+on:
+  push:
+    branches: [dev]        
+  pull_request:
+    branches: [dev, master]     
+
+jobs:
+  pylint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          cd backend
+          python -m pip install --upgrade pip
+          pip install poetry
+          poetry install --no-root  # ставим только зависимости, без текущего пакета
+
+      - name: Run Pylint
+        run: |
+          cd backend
+          poetry run pylint main.py tests app

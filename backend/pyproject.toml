@@ -1,0 +1,29 @@
+[tool.poetry]
+name = "backend"
+version = "0.1.0"
+description = "Backend for ToDo"
+authors = ["Danila Golubev <danila25golubev@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+fastapi = "^0.119.0"
+uvicorn = "^0.37.0"
+pytest = "^8.4.2"
+aiohttpx = "^0.0.12"
+pytest-cov = "^7.0.0"
+pylint = "^4.0.1"
+black = "^25.9.0"
+alembic = "^1.17.0"
+sqlalchemy = "^2.0.44"
+asyncpg = "^0.30.0"
+pydantic = {extras = ["email"], version = "^2.12.3"}
+pydantic-settings = "^2.11.0"
+pytest-asyncio = "^1.2.0"
+pyjwt = "^2.10.1"
+passlib = "^1.7.4"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
