@@ -3,7 +3,6 @@ from .task import TaskRequest, TaskStatus, BaseTask, TaskResponse
 from .analytics import (
     UserInfo,
     TasksOverview,
-    StatusDistribution,
     ProductivityMetrics,
     RecentActivity,
     TasksCreatedByWeekday,
@@ -13,7 +12,6 @@ from .analytics import (
 __all__ = [
     "UserInfo",
     "TasksOverview",
-    "StatusDistribution",
     "ProductivityMetrics",
     "RecentActivity",
     "TasksCreatedByWeekday",

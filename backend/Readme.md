@@ -208,11 +208,6 @@
     "completed_tasks": "integer",
     "completion_rate": "float (0-1)"
   },
-  "status_distribution": {
-    "pending": "integer",
-    "in_progress": "integer", 
-    "completed": "integer"
-  },
   "productivity_metrics": {
     "tasks_created_today": "integer",
     "tasks_completed_today": "integer",

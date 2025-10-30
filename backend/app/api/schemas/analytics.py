@@ -28,12 +28,6 @@ class TasksOverview(BaseModel):
         return self
 
 
-class StatusDistribution(BaseModel):
-    pending: int = 0
-    in_progress: int = 0
-    completed: int = 0
-
-
 class ProductivityMetrics(BaseModel):
     tasks_created_today: int = 0
     tasks_completed_today: int = 0
@@ -57,10 +51,9 @@ class TasksCreatedByWeekday(BaseModel):
     sunday: int = 0
 
 
-class AnalyticsManager:
+class AnalyticsManager(BaseModel):
     user_info: UserInfo
     tasks_overview: TasksOverview
-    status_distribution: StatusDistribution
     productivity_metrics: ProductivityMetrics
     recent_activity: RecentActivity
     tasks_created_by_weekday: TasksCreatedByWeekday
