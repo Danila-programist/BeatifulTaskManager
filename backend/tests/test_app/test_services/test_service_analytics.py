@@ -1,9 +1,8 @@
 import uuid
-from datetime import datetime, timedelta, date
+from datetime import datetime, timedelta
 
 import pytest
 import pytest_asyncio
-from unittest.mock import patch
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.services import AnalyticsService
