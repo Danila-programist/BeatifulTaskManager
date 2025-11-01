@@ -66,13 +66,13 @@ test-db: ##@Testing Apply test-db for backend
 test-db-down: ##@Testing Remove test-db for backend
 	docker-compose -f docker-compose.test.yml down -v --remove-orphans
 
-format:   ##@Code Format code with black
+format:   ##@Code Format code with black for backend
 	cd backend && poetry run black .
 
-lint: ##@Code Lint code with pylint
+lint: ##@Code Lint code with pylint for backend
 	cd backend && poetry run pylint app main.py tests
 
-help: ##@Help Show this help
+help: ##@Help Show this help 
 	@echo -e "Usage: make [target] ...\n"
 	@perl -e '$(HELP_FUN)' $(MAKEFILE_LIST)
 
