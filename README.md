@@ -22,6 +22,26 @@
 - Реализация эндпоинта аналитики (будет отображаться в профиле о пользователе с различными метриками) 
 - Добавление логгирования 
 
+## Технологический стэк backend 
+
+- Python 3.12
+- Docker/Docker-compose
+- Alembic 
+- Poetry
+- Makefile
+- SQLAlchemy
+- PostgreSQL/asyncpg
+- PyJWT
+- Pytest
+- Pydantic
+- Pydantic-settings
+- Asyncio
+- Uvicorn
+- logging
+- Pylint
+- Black
+- CI
+
 
 ## Документация бэкенда
 
@@ -74,26 +94,6 @@
 
 - Nginx
 - Node.js
-
-## Технологический стэк backend 
-
-- Python 3.12
-- Docker/Docker-compose
-- Alembic 
-- Poetry
-- Makefile
-- SQLAlchemy
-- PostgreSQL/asyncpg
-- PyJWT
-- Pytest
-- Pydantic
-- Pydantic-settings
-- Asyncio
-- Uvicorn
-- logging
-- Pylint
-- Black
-- CI
 
 ## Запуск программы 
 
