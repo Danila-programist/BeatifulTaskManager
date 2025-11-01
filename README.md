@@ -98,7 +98,7 @@
 ## Запуск программы 
 
 Перед запуском необходимо установить следующие программы:
-`poetry`, `python3.12`, `docker` и `docker-compose` и `node.js`
+`poetry`, `python3.12`, `docker` и `docker-compose`, `node.js`, `npm`
 
 1. Инициализация переменных окружения 
 
