@@ -68,7 +68,7 @@
 
 ## Технологический стэк frontend
 
-- React 18
+- React 19
 - Vite
 - React Router 
 - Axios
