@@ -7,16 +7,18 @@ export default function LoginPassword() {
 
   const onFinish = async (values) => {
     try {
-      const response = await axios.post("http://localhost:8000/api/v1/auth/login", {
-        username: values.username,
-        password: values.password,
-      });
-
-      const token = response.data.access_token; 
-      localStorage.setItem("token", token); 
+      await axios.post(
+        "http://localhost:8000/api/v1/auth/login",
+        {
+          username: values.username,
+          password: values.password,
+        },
+        { withCredentials: true } 
+      );
 
       message.success("Вы успешно вошли!");
-      navigate("/"); 
+
+      navigate("/main");
     } catch (error) {
       console.error("Login failed:", error.response?.data || error.message);
       message.error("Ошибка входа. Проверьте логин и пароль.");
@@ -49,9 +51,11 @@ export default function LoginPassword() {
 
         <Form.Item>
           <Button
-            type="primary"
             htmlType="submit"
-            className="bg-accent hover:bg-dark text-light w-full"
+            className="bg-accent text-light w-full transition-colors duration-200"
+            style={{ color: "#F8FAFC" }}
+            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#1E1E1E")}
+            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#7C3AED")}
           >
             Войти
           </Button>
