@@ -5,7 +5,7 @@ export default function HomeButton() {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate("/login"); 
+    navigate("/auth"); 
   };
 
   return (
