@@ -1,14 +1,17 @@
 import { useState } from "react";
 import Header from "../components/Header.jsx";
 import SidebarMenu from "../components/SidebarMenu.jsx";
+import TasksList from "../components/TaskList.jsx";
 
 export default function Main() {
-  const [activeTab, setActiveTab] = useState("about");
+  const [activeTab, setActiveTab] = useState("all"); // по умолчанию "Все задачи"
 
   const renderContent = () => {
     switch (activeTab) {
       case "about":
         return <div>Информация обо мне</div>;
+      case "all":
+        return <TasksList />
       case "current":
         return <div>Текущие задачи</div>;
       case "completed":

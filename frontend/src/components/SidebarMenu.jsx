@@ -8,7 +8,7 @@ import {
 } from "@ant-design/icons";
 
 export default function SidebarMenu({ onSelect }) {
-  const [selectedKey, setSelectedKey] = useState("all"); // теперь по умолчанию "Все задачи"
+  const [selectedKey, setSelectedKey] = useState("all"); 
 
   const items = [
     { key: "about", icon: <UserOutlined />, label: "Обо мне" },
@@ -27,7 +27,7 @@ export default function SidebarMenu({ onSelect }) {
       style={{
         width: 200,
         minHeight: "calc(100vh - 80px)",
-        backgroundColor: "#F8FAFC", // основной фон меню
+        backgroundColor: "#F8FAFC", 
       }}
       mode="inline"
       selectedKeys={[selectedKey]}
@@ -35,8 +35,8 @@ export default function SidebarMenu({ onSelect }) {
       items={items.map((item) => ({
         ...item,
         style: {
-          color: selectedKey === item.key ? "#F8FAFC" : "inherit", // текст белый для активного
-          backgroundColor: selectedKey === item.key ? "#7C3AED" : "transparent", // фон для активного
+          color: selectedKey === item.key ? "#F8FAFC" : "inherit", 
+          backgroundColor: selectedKey === item.key ? "#7C3AED" : "transparent", 
         },
       }))}
     />
