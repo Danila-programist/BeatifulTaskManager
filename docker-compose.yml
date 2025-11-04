@@ -1,3 +1,5 @@
+version: "3.9"
+
 services:
   backend_db:
     image: postgres:15
@@ -10,7 +12,7 @@ services:
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
     ports:
-      - "${DB_PORT}:5432" 
+      - "${DB_PORT}:5432"
     networks:
       - app_network
     volumes:
@@ -18,21 +20,32 @@ services:
 
   backend_app:
     build: ./backend
-    container_name: "task_manager_backend"
+    container_name: task_manager_backend
     restart: always
+    ports:
+      - "8000:8000"
     depends_on:
       - backend_db
     environment:
       DB_HOST: backend_db
     env_file:
       - .env
-    ports:
-      - "8000:8000"
     working_dir: /app
-    volumes:
-      - ./backend:/app 
     networks:
       - app_network
+
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    depends_on:
+      - backend_app
+    ports:
+      - "80:80"
+    networks:
+      - app_network
+    volumes:
+      - ./frontend/dist:/usr/share/nginx/html
+      - ./infrastructure/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
 
 volumes:
   postgres_data:
