@@ -2,6 +2,7 @@ import { useState } from "react";
 import Header from "../components/Header.jsx";
 import SidebarMenu from "../components/SidebarMenu.jsx";
 import TasksList from "../components/TaskList.jsx";
+import UserProfile from "../components/UserProfile.jsx";
 
 export default function Main() {
   const [activeTab, setActiveTab] = useState("all"); // по умолчанию "Все задачи"
@@ -9,7 +10,7 @@ export default function Main() {
   const renderContent = () => {
     switch (activeTab) {
       case "about":
-        return <div>Информация обо мне</div>;
+        return <UserProfile />
       case "all":
         return <TasksList />
       case "current":
