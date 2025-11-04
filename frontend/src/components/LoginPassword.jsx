@@ -28,9 +28,19 @@ export default function LoginPassword() {
         <Form.Item>
           <Button
             htmlType="submit"
-            className="bg-accent text-light w-full transition-colors duration-200"
-            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#1E1E1E")}
-            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#7C3AED")}
+            className="w-full transition-colors duration-200"
+            style={{
+              backgroundColor: "#7C3AED", // фиолетовый по умолчанию
+              color: "#fff",               // белый текст по умолчанию
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = "#1E1E1E"; // тёмный фон
+              e.currentTarget.style.color = "#fff";              // белый текст
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = "#7C3AED"; // фиолетовый фон
+              e.currentTarget.style.color = "#fff";              // белый текст
+            }}
           >
             Войти
           </Button>

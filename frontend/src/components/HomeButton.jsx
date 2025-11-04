@@ -1,24 +1,37 @@
-import { Button, Flex } from "antd";
+import { useState } from "react";
+import { Button, message } from "antd";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export default function HomeButton() {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
-  const handleClick = () => {
-    navigate("/auth"); 
+  const handleClick = async () => {
+    setLoading(true);
+    try {
+      // Попытка проверить авторизацию
+      await axios.get("http://localhost:8000/api/v1/tasks", {
+        withCredentials: true,
+      });
+      navigate("/main"); // если успешный ответ, идём на main
+    } catch (error) {
+      navigate("/auth"); // если ошибка (не авторизован) — на auth
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <Flex gap="small" justify="center">
-      <Button
-        onClick={handleClick}
-        className="bg-accent border-none shadow-md px-6 py-2 rounded-lg transition-colors duration-200 text-light"
-        onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#1E1E1E")}
-        onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#7C3AED")}
-        style={{ color: "#F8FAFC" }} 
-      >
-        Начать работу
-      </Button>
-    </Flex>
+    <Button
+      onClick={handleClick}
+      loading={loading}
+      className="bg-accent border-none shadow-md px-6 py-2 rounded-lg transition-colors duration-200 text-light"
+      onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#1E1E1E")}
+      onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#7C3AED")}
+      style={{ color: "#fff" }}
+    >
+      Начать работу
+    </Button>
   );
 }
