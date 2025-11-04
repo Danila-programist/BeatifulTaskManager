@@ -21,3 +21,8 @@
 - `App.jsx` - основное приложение React
 - `index.css` - стили App.jsx
 - `main.jsx` - интеграция к index.html страничке
+
+
+### Схематичное представление реализации бэкенда
+
+![alt text](/frontend/img/image.png)
