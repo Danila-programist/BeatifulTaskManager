@@ -18,7 +18,7 @@ export default function TasksList() {
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/api/v1/tasks", {
+        const response = await axios.get("/api/v1/tasks", {
           withCredentials: true,
         });
         setTasks(response.data);
@@ -37,7 +37,7 @@ export default function TasksList() {
   // 🔹 Удаление задачи
   const handleDelete = async (taskId) => {
     try {
-      await axios.delete(`http://localhost:8000/api/v1/tasks/${taskId}`, {
+      await axios.delete(`/api/v1/tasks/${taskId}`, {
         withCredentials: true,
       });
       message.success("Задача успешно удалена!");
@@ -58,7 +58,7 @@ export default function TasksList() {
   const handleSave = async () => {
     try {
       await axios.put(
-        `http://localhost:8000/api/v1/tasks/${editingTask.task_id}`,
+        `api/v1/tasks/${editingTask.task_id}`,
         {
           title: editingTask.title,
           description: editingTask.description,

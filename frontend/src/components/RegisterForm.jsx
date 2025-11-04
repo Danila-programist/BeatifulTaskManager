@@ -8,7 +8,7 @@ export default function RegisterForm() {
   const onFinish = async (values) => {
     try {
       await axios.post(
-        "http://localhost:8000/api/v1/auth/register",
+        "/api/v1/auth/register",
         {
           username: values.username,
           email: values.email,

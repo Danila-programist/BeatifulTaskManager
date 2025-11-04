@@ -11,7 +11,7 @@ export default function HomeButton() {
     setLoading(true);
     try {
       // Попытка проверить авторизацию
-      await axios.get("http://localhost:8000/api/v1/tasks", {
+      await axios.get("/api/v1/tasks", {
         withCredentials: true,
       });
       navigate("/main"); // если успешный ответ, идём на main

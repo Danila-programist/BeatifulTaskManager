@@ -26,7 +26,7 @@ env_file: ##@Environment Create or update .env file
 		cp .env.example .env; \
 	fi
 
-up:  ##@Docker Start docker-compose services
+up: build_frontend ##@Docker Start docker-compose services
 	docker-compose up -d  
 
 down:  ##@Docker Stop docker-compose services
@@ -35,7 +35,7 @@ down:  ##@Docker Stop docker-compose services
 logs:   ##@Docker Show logs from docker-compose
 	docker-compose logs -f
 
-rebuild:  ##@Docker Rebuild and restart services
+rebuild: build_frontend ##@Docker Rebuild and restart services
 	docker-compose down && docker-compose up -d --build
 
 psql:  ##@Database Open PostgreSQL inside docker container
@@ -87,7 +87,10 @@ clean: ##@Code Remove Python cache files and directories
 	@rm -rf backend/.pytest_cache 2>/dev/null || true
 	@echo "Python cache cleaned!"
 	
+build_frontend: ##@Frontend Build frontend (npm install + npm run build)
+	cd frontend && npm install && npm run build
+
 %::
 	@echo $(MESSAGE)
 
-PHONY: up down backend_env help rebuild logs format test-cov_backend test_backend lint env_file test-db clean
+PHONY: up down backend_env help rebuild logs format test-cov_backend test_backend lint env_file test-db clean build_frontend

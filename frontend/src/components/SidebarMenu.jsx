@@ -20,7 +20,7 @@ export default function SidebarMenu({ onSelect }) {
 
   const handleLogout = async () => {
     try {
-      await axios.post("http://localhost:8000/api/v1/auth/logout", {}, { withCredentials: true });
+      await axios.post("/api/v1/auth/logout", {}, { withCredentials: true });
       message.success("Вы успешно вышли из аккаунта");
       navigate("/");
     } catch (error) {

@@ -30,7 +30,7 @@ export default function AddTaskButton({ onTaskAdded }) {
     setLoading(true);
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/v1/tasks",
+        "/api/v1/tasks",
         task,
         { withCredentials: true }
       );
