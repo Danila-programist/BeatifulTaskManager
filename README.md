@@ -121,6 +121,12 @@ make env_file
 make up
 ```
 
+3. Установка зависимостей poetry
+
+```bash
+make poetry_install
+```
+
 3. Ревизия базы данных
 
 ```bash
