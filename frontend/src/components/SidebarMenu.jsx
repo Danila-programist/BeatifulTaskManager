@@ -1,9 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Menu } from "antd";
 import {
   UserOutlined,
-  UnorderedListOutlined,
-  CheckCircleOutlined,
   AppstoreOutlined,
 } from "@ant-design/icons";
 
@@ -13,8 +11,6 @@ export default function SidebarMenu({ onSelect }) {
   const items = [
     { key: "about", icon: <UserOutlined />, label: "Обо мне" },
     { key: "all", icon: <AppstoreOutlined />, label: "Все задачи" },
-    { key: "current", icon: <UnorderedListOutlined />, label: "Текущие задачи" },
-    { key: "completed", icon: <CheckCircleOutlined />, label: "Выполненные задачи" },
   ];
 
   const handleClick = (e) => {

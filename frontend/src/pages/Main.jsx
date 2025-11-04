@@ -13,10 +13,6 @@ export default function Main() {
         return <UserProfile />
       case "all":
         return <TasksList />
-      case "current":
-        return <div>Текущие задачи</div>;
-      case "completed":
-        return <div>Выполненные задачи</div>;
       default:
         return null;
     }
