@@ -130,13 +130,13 @@ make up
 make poetry_install
 ```
 
-3. Ревизия базы данных
+4. Ревизия базы данных
 
 ```bash
 make revision
 ```
 
-4. Миграция базы данных
+5. Миграция базы данных
 
 ```bash
 make migration
